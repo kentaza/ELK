@@ -1,2 +1,3 @@
-FROM docker.elastic.co/logstash/logstash:5.5.0
-RUN  /usr/share/logstash/bin/logstash-plugin remove x-pack
+FROM logstash
+COPY logstash.conf /config-dir/
+CMD ["-f", "/config-dir/logstash.conf"]

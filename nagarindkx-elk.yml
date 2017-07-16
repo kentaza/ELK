@@ -9,12 +9,22 @@ services:
         - elk
    kibana:
       image: nagarindkx/kibana-noxpack
+      environment:
+        - "elasticsearch.username: "
+        - "elasticsearch.password: "
       ports:
         - 5601:5601
       networks:
         - elk
    logstash:
-      image: nagarindkx/logstash-noxpack
+      image: logstash
+      environment:
+        - "ELASTICSEARCH_HOST: elasticsearch"
+        - "ELASTICSEARCH_PORT: 9200"
+      volumes:
+        - $(pwd)/logstash/conf.d/:/etc/logstash/conf.d
+      ports:
+        - 10514:10514
       networks:
         - elk
 
