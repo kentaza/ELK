@@ -1,3 +1,3 @@
-docker build -t elasticsearch:noxpack ./elasticsearch
-docker build -t kibana:noxpack ./kibana
-docker build -t logstash:noxpack ./logstash
+docker build -t nagarindkx/elasticsearch-noxpack ./elasticsearch
+docker build -t nagarindkx/kibana-noxpack ./kibana
+docker build -t nagarindkx/logstash-noxpack ./logstash
