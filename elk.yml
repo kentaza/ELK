@@ -3,31 +3,39 @@ version: "3.3"
 services:
    elasticsearch:
       image: nagarindkx/elasticsearch-noxpack
-      volumes:
-        - elasticsearch-volume:/usr/share/elasticsearch/data
+      environment:
+        - "XPACK_MONITORING_ENABLED=false"
+        - "XPACK_SECURITY_ENABLED=false"
       ports:
         - 9200:9200
+      volumes:
+        - elasticsearch-volume:/var/lib/elasticsearch
       networks:
         - elk
    kibana:
       image: nagarindkx/kibana-noxpack
+      depends_on:
+        - elasticsearch
       environment:
-        - "XPACK_MONITORING_ENABLED: false"
+        - "XPACK_MONITORING_ENABLED=false"
+        - "XPACK_SECURITY_ENABLED=false"
       ports:
         - 5601:5601
       networks:
         - elk
    logstash:
       image: nagarindkx/logstash-noxpack
+      depends_on:
+        - elasticsearch
       environment:
-        - "XPACK_MONITORING_ENABLED: false"
+        - "XPACK_MONITORING_ENABLED=false"
+        - "XPACK_SECURITY_ENABLED=false"
       volumes:
         - logstash-volume:/usr/share/logstash/data
       ports:
-        - 10514:5514
+        - 5514:5514
       networks:
         - elk
-
 networks:
    elk:
       driver: overlay
